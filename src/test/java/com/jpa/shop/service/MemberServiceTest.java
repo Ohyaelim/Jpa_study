@@ -14,6 +14,8 @@ import javax.persistence.EntityManager;
 
 import static org.junit.Assert.*;
 
+// DB 메모리 모드로 써보자!
+
 // spring이랑 integration해서 테스트할거임. 아래 두 어노테이션 필수
 // 또 데이터 변경해야하기 때문에 transactional 어노테이션 넣어준다. 이게 있어야 rollback된다.
 @RunWith(SpringRunner.class) // junit 실행할 때 스프링이랑 엮어서 실행할래!
