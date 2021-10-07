@@ -1,6 +1,8 @@
 package com.jpa.shop.repository;
 
 import com.jpa.shop.domain.Member;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -9,12 +11,19 @@ import java.util.List;
 
 // 레포지토리 어노테이션을 사용하면 컴포넌트 스캔에 의해서 자동으로 스프링빈으로 관리
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository {
 
     // JPA를 사용하므로 JPA의 표준 어노테이션 사용
     // 스프링이 entity manager 만들어서 injection해줌
-    @PersistenceContext
-    private EntityManager em;
+//    @PersistenceContext
+    // 저 표준 어노테이션을 꼭 써야 em을 넣어주지만 (스프링부트) 스프링 data jpa가 autowired 지원해줌
+//    @Autowired
+    private final EntityManager em;
+
+//    public MemberRepository(EntityManager em) {
+//        this.em = em;
+//    }
 
     public void save(Member member) {
         // em이 저장하는 로직, 영속성에 넣어
@@ -22,7 +31,7 @@ public class MemberRepository {
        em.persist(member);
     }
 
-    public Member findMember(Long id) {
+    public Member findOne(Long id) {
         // 타입, pk
         return em.find(Member.class, id);
     }
